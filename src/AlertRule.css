@@ -1,0 +1,42 @@
+.AlertRule {
+	min-height: 200px;
+	margin: 0 10px 10px 10px;
+	width: 250px;
+}
+
+.AlertRule .ant-card {
+	height: 100%;
+}
+
+.AlertRule .ant-card-head {
+	background-color: #52c41a;
+}
+
+.AlertRule .ant-card-body {
+	background-color: #d9f7be;
+	height: calc(100% - 56px);
+}
+
+.AlertRule .pending .ant-card-head {
+	background-color: #ffd666;
+}
+.AlertRule .pending .ant-card-body {
+	background-color: #fff1b8;
+}
+
+.AlertRule .firing .ant-card-head {
+	background-color: #ff4d4f;
+}
+.AlertRule .firing .ant-card-body {
+	background-color: #ffccc7;
+}
+
+.AlertIcon {
+	vertical-align: middle;
+}
+
+.AlertRule .ant-card-extra {
+        border: 1px rgba(0, 0, 0, 0.4) solid;
+        padding: 0 4px;
+        border-radius: 4px;
+}
