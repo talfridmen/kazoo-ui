@@ -2,12 +2,12 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import AlertPanel from './AlertPanel';
 import Links from './Links';
-import _ from 'lodash';
+import lodash from 'lodash';
 import useSound from 'use-sound';
 import help from './music/help.mp3';
 import ContactList from './ContactList';
 import { Button } from 'antd';
-import sources from './Sources.json';
+import sources from './config/Sources.json';
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
   
 
   useEffect(() => {
-    const currentAlerts = _.difference(Object.keys(alerts), stoppedAlerts)
+    const currentAlerts = lodash.difference(Object.keys(alerts), stoppedAlerts)
     if(!isPlaying && currentAlerts.length) {
       play();
       setPlaying(true);
@@ -29,24 +29,24 @@ function App() {
       stop();
       setPlaying(false);
     }
-  }, [play, stop, isPlaying, alerts]);
+  }, [play, stop, isPlaying, alerts, stoppedAlerts]);
 	
   useEffect(() => {
     const interval = setInterval(async () => {
       const newActiveSources = {}
-      const requests = _.map(sources, source => [source, fetch(`${source}/api/v1/rules`)])
+      const requests = lodash.map(sources, source => [source, fetch(`${source}/api/v1/rules`)])
       const newRules = []
       for (const [source, req] of requests) {
         try {
           const res = await req
           const j = await res.json()
           for (const group of j.data.groups) {
-            newRules.push(..._.filter(group.rules, r => 'kazoo' in r.annotations))
+            newRules.push(...lodash.filter(group.rules, r => ! lodash.isEmpty(r.annotations) && 'kazoo' in r.annotations))
           }
           newActiveSources[source] = true
           removeAlert(source)
         } catch (error) {
-          console.log("could not fetch data from source" + source)
+          console.log("could not fetch data from source " + source)
           newActiveSources[source] = false
           addAlert(source)
         }

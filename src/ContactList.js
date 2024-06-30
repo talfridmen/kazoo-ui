@@ -1,6 +1,6 @@
 import './ContactList.css';
 import { Table } from 'antd';
-import contacts from './contactList.json';
+import contacts from './config/contactList.json';
 
 function ContactList() {
   return (
